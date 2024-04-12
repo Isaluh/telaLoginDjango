@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/telaLogin/static/style.css">
+    <title>Cadastro</title>
+</head>
+<body>
+    <main>
+        <h1>Cadastro</h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'warning' %}
+                    <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <img src="telaLogin/static/alerta.svg" alt="">
+                        <strong>Alerta!</strong> {{ message }}
+                    </span>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                    <span id='success' {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <img src="telaLogin/static/check.svg" alt="">
+                        <strong>Prontinho!</strong> {{ message }}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        
+        <form id="fromCadastro" class="campos" action="{% url 'cadastro' %}" method="POST">
+            <input name="email" type="email" placeholder="E-mail" required>
+            <input name="senha" type="password" placeholder="Senha" required>
+            <input name="resenha" type="password" placeholder="Confirmar senha" required>
+            <div class="cadastro">
+                <a href="/">Já tem uma conta?</a>
+            </div>
+            {% csrf_token %}
+        </form>
+        
+        <button form="fromCadastro" type="submit"><img src="/telaLogin/static/prosseguir.svg" alt="Prosseguir"></button>
+    </main>
+</body>
+</html>
